@@ -1,0 +1,112 @@
+*** Settings ***
+Suite Teardown    Close All Browsers
+Library           Selenium2Library
+Library           String
+Library           Collections
+Library           OperatingSystem
+
+*** Test Cases ***
+bank
+    set selenium speed    2
+    open browser    http://www.hncb.com.tw/index.shtml/    gc
+    Maximize Browser Window
+    Click Element    id=Image2
+    select window    遨遊金融、理財舵手~華南銀行-個人網路銀行
+    Input Text    id=USERID    F226657641
+    Input Text    id=NICKNAME    tt90089
+    Click Element    id=pwdText
+    Input Text    id=password    nspectrum770225
+    Click Element    link=確定登入
+    page should contain    親愛的 weiting 您好！
+    capture page screenshot
+    selectFrame    name=left
+    Click Element    link=帳務查詢
+    unselect frame
+    selectFrame    name=main
+    ${a}    get text    //*[@id="BaseInclude1"]/form/table/tbody/tr[2]/td/table[2]/tbody/tr[2]/td[5]
+    log    ${a}
+    ${data}    get file    c:\\data.txt
+    log    ${data}
+    ${lines}    split to lines    ${data}
+    : FOR    ${line}    IN    @{lines}
+    \    log    ${line}
+    \    Run Keyword And Ignore Error    run keyword if    ${a} == ${line}    log    match!!
+    unselect frame
+    selectFrame    name=topF
+    Click Element    link=登出
+    page should contain    網路銀行簽退成功，謝謝您的光臨
+    capture page screenshot
+    close all browsers
+
+eaaytravel
+    set selenium speed    1.5
+    open browser    http://localhost:8082/    gc
+    ${data}    get file    c:\\account.txt
+    log    ${data}
+    ${lines}    split to lines    ${data}
+    : FOR    ${line}    IN    @{lines}
+    \    @{WORDS}    Split String    ${line}    ,
+    \    ${a}    Get From List    ${WORDS}    0
+    \    ${b}    Get From List    ${WORDS}    1
+    \    ${c}    Get From List    ${WORDS}    2
+    \    ${d}    Get From List    ${WORDS}    3
+    \    ${e}    Get From List    ${WORDS}    4
+    \    ${f}    Get From List    ${WORDS}    5
+    \    Click Element    id=loginForm:loginLink
+    \    Click Element    id=loginForm:newAccount
+    \    Input Text    id=iceform:firstName    ${a}
+    \    Input Text    id=iceform:lastName    ${b}
+    \    Input Text    id=iceform:email    ${c}
+    \    Input Text    id=iceform:emailConfirm    ${d}
+    \    Input Text    id=iceform:password    ${e}
+    \    Input Text    id=iceform:passwordConfirm    ${f}
+    \    Click Element    id=iceform:newAccountCreate
+    \    page should contain    Account Created
+    \    capture page screenshot
+    \    Click Element    id=loginForm:logoutLink
+
+demo
+    set selenium speed    0.5
+    open browser    http://localhost:8082//    gc
+    Click Element    //body
+    Click Element    id=_t16
+    Click Element    id=_t19
+    Click Element    id=_t28
+    add cookie    id    235
+
+null
+    set selenium speed    2
+    open browser    http://www.hncb.com.tw/index.shtml/    gc
+    Maximize Browser Window
+    Click Element    id=Image2
+    select window    遨遊金融、理財舵手~華南銀行-個人網路銀行
+    ${data}    get file    c:\\a.txt
+    log    ${data}
+    ${lines}    split to lines    ${data}
+    : FOR    ${line}    IN    @{lines}
+    \    log    ${line}
+    Input Text    id=USERID    ${line}
+    Input Text    id=NICKNAME    ${line}
+    Click Element    id=pwdText
+    Input Text    id=password    ${line}
+    Click Element    link=確定登入
+    page should contain    親愛的 weiting 您好！
+    capture page screenshot
+    selectFrame    name=left
+    Click Element    link=帳務查詢
+    unselect frame
+    selectFrame    name=main
+    ${a}    get text    //*[@id="BaseInclude1"]/form/table/tbody/tr[2]/td/table[2]/tbody/tr[2]/td[5]
+    log    ${a}
+    ${data}    get file    c:\\data.txt
+    log    ${data}
+    ${lines}    split to lines    ${data}
+    : FOR    ${line}    IN    @{lines}
+    \    log    ${line}
+    \    Run Keyword And Ignore Error    run keyword if    ${a} == ${line}    log    match!!
+    unselect frame
+    selectFrame    name=topF
+    Click Element    link=登出
+    page should contain    網路銀行簽退成功，謝謝您的光臨
+    capture page screenshot
+    close all browsers

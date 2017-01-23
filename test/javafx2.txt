@@ -1,0 +1,11 @@
+*** Settings ***
+Library           SwingLibrary
+
+*** Test Cases ***
+javafx2
+    Launch Application    hellojavafx.HelloJavaFX
+    Push Button    Say 'Hello World'
+
+test
+    Start Application    HeliumGuess
+    Select Window    HeliumGuess 2.0

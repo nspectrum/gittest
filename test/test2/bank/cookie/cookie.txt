@@ -1,0 +1,17 @@
+*** Settings ***
+Library           Selenium2Library
+Library           String
+Library           Collections
+Library           OperatingSystem
+Resource          open.txt
+
+*** Test Cases ***
+cookie
+    Comment    set selenium speed    0.5
+    Comment    open browser    http://localhost:8082//    gc
+    Comment    add cookie    idname    nspectrum
+    Comment    Click Element    //body
+    Comment    Click Element    id=_t16
+    Comment    Click Element    id=_t19
+    Comment    Click Element    id=_t28
+    瀏覽器

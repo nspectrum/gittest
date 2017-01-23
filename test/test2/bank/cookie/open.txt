@@ -1,0 +1,6 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Keywords ***
+瀏覽器
+    open browser    https://www.google.com.tw/    gc

@@ -1,0 +1,40 @@
+*** Settings ***
+Suite Teardown    Close All Browsers
+Library           Selenium2Library
+Library           String
+Library           Collections
+Library           OperatingSystem
+
+*** Test Cases ***
+if
+    ${a}    set variable    15
+    log    ${a}
+    ${data}    get file    c:\\if.txt
+    log    ${data}
+    ${lines}    split to lines    ${data}
+    : FOR    ${line}    IN    @{lines}
+    \    log    ${line}
+    \    run keyword if    ${a} == ${line}    Log    成功
+    \    run keyword if    ${a} != ${line}    Log    錯誤
+    \    Comment    run keyword unless    ${a} == ${line}    Log    錯誤
+
+empty
+    set selenium speed    0.5
+    open browser    https://www.google.com.tw    gc
+    Comment    ${data}    get file    c:\\empty.txt    encoding=big5
+    Comment    log    ${data}
+    Comment    ${lines}    split to lines    ${data}
+    Comment    : FOR    ${line}    IN    @{lines}
+    Comment    \    log    ${line}
+    Comment    \    ${a}    get length    ${line}
+    Comment    \    log    ${a}
+    Comment    \    Input Text    id=lst-ib    ${line}
+    Input Text    id=lst-ib    早安
+    Submit Form
+    Click Element    css=img[alt="Google"]
+
+length
+    ${a}    set variable    14
+    log    ${a}
+    ${a}    get length    4455545545
+    log    ${a}

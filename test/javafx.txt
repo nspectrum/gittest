@@ -1,0 +1,45 @@
+*** Settings ***
+Suite Setup       Start Test Application
+Library           SwingLibrary
+Library           Selenium2Library
+
+*** Test Cases ***
+Test Add Todo Item
+    Insert Todo Item buy milk
+    Select From List    todolist    0
+    ${item}=    Get Selected Value From List    todolist
+    Should Be Equal    ${item}    buy milk
+    Push Button    delete
+
+Test Delete Todo Item
+    Insert Todo Item to be deleted
+    Select From List    todolist    0
+    Push Button    delete
+    ${items}=    Get List Item Count    todolist
+    Should Be Equal As Numbers    ${items}    0
+
+hncb
+    Insert Todo Item hncb_1
+    sleep    5
+    Insert Todo Item hncb_2
+    sleep    5
+    Insert Todo Item hncb_3
+    sleep    5
+    Select From List    todolist    hncb_2
+    sleep    5
+    #${item}=    Find Table Row    todolist    hncb_2
+    #Select From List    todolist    1
+    #${item}=    Get Selected Value From List    todolist
+    #Should Be Equal    ${item}    hncb_1
+    Push Button    delete
+    sleep    15
+
+*** Keywords ***
+Start Test Application
+    Start Application    org.robotframework.swing.testapp.examplesut.TodoListApplication
+    Select Window    Todo List
+    List Components In Context
+
+Insert Todo Item ${arg}
+    Insert Into Text Field    description    ${arg}
+    Push Button    add

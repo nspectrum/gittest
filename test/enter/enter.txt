@@ -1,0 +1,9 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Test Cases ***
+enter
+    set selenium speed    0.5
+    open browser    https://www.google.com.tw//    gc
+    Input Text    id=lst-ib    apple
+     Press Key     id=lst-ib    \\13

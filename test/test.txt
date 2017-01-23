@@ -1,0 +1,9 @@
+*** Settings ***
+Library           DatabaseLibrary
+Library           Selenium2Library
+
+*** Test Cases ***
+test
+    Connect To Database Using Custom Params    pymysql    database='test',user='root',password='123456',host='127.0.0.1', port=3306
+    ${a}    query    SELECT * FROM test.new_table
+    log    ${a}
