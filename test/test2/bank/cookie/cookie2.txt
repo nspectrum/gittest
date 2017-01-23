@@ -1,0 +1,17 @@
+﻿*** Settings ***
+Library           Selenium2Library
+Library           String
+Library           Collections
+Library           OperatingSystem
+
+
+*** Test Cases ***
+cookie2
+    set selenium speed    0.5
+    open browser    http://localhost:8082//    gc
+    add cookie    idname    nspectrum
+    Click Element    //body
+    Click Element    id=_t16
+    Click Element    id=_t19
+    Click Element    id=_t28
+
