@@ -1,0 +1,17 @@
+*** Settings ***
+Suite Teardown    Close All Browsers
+Library           Selenium2Library
+
+*** Test Cases ***
+test2
+    set selenium speed    2
+    open browser    https://tw.yahoo.com/    gc
+    ${title}    Get Title
+    log    ${title}
+    should contain    ${title}    Yahoo奇摩
+
+test3
+    set selenium speed    2
+    open browser    https://www.google.com.tw/webhp?ei=zDqPV4-OOMvG0ATXrLPYAg&ved=0EKkuCAUoAw    gc
+    ${title}    Get Title
+    log    ${title}
